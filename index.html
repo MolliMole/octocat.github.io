@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Molli" content="width=device-width, initial-scale=1.0">
+    <title>Molli - Producto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Configuración de colores Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        azul: '#4A89DC',
+                        rojo: '#E9573F',
+                        cafe: '#8D6E63',
+                        crema: '#F5F5DC',
+                        oscuro: '#3E2723'
+                    },
+                    fontFamily: {
+                        sans: ['Arial', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-crema text-oscuro">
+    <!-- Header Fijo -->
+    <header class="fixed top-0 w-full bg-white/90 shadow-md z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+           
+            <a href="#inicio" class="flex items-center gap-2">
+              
+             <img 
+  src="/storage/emulated/0/Pictures/WhatsApp/IMG-20260225-WA0097.jpg" 
+       alt="Mole negro envasado" 
+  width="100" height="50" <!-- Ancho -->
+               
+   <!-- Alto -->
+>               
+              
+         
+
+                
+                <span class="text-xl font-bold text-cafe"> Molli</span>
+            </a>
+
+            <!-- Menú Desktop (derecha) -->
+            <nav class="hidden lg:flex items-center gap-6">
+                <a href="#Productos" class="text-oscuro hover:text-azul transition-colors">Inicio</a>
+                <a href="#nosotros" class="text-oscuro hover:text-azul transition-colors">Nosotros</a>
+                <a href="#servicios" class="text-oscuro hover:text-azul transition-colors">Servicios</a>
+                
+                <!-- Submenú Contacto + Ayuda -->
+                <div class="relative group">
+                    <button class="flex items-center gap-1 text-oscuro hover:text-azul transition-colors">
+                        Contacto <i class="fa fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300">
+                        <a href="#contacto" class="block px-4 py-2 hover:bg-azul/10 transition-colors">Datos de Contacto</a>
+                        <a href="#ayuda" class="block px-4 py-2 hover:bg-azul/10 transition-colors">Ayuda y Preguntas</a>
+                    </div>
+                </div>
+
+                <!-- Buscador Desktop -->
+                <div class="relative">
+                    <input type="text" placeholder="Buscar mole..." class="px-3 py-1 border border-cafe/30 rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-azul">
+                    <button class="absolute right-2 top-1/2 -translate-y-1/2 text-cafe">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+
+                <!-- Redes Sociales Desktop -->
+                <div class="flex gap-3">
+                    <a href="#" class="text-azul hover:text-azul/80 transition-colors"><i class="fa fa-facebook-square text-lg"></i></a>
+                    <a href="#" class="text-rojo hover:text-rojo/80 transition-colors"><i class="fa fa-instagram text-lg"></i></a>
+                    <a href="#" class="text-cafe hover:text-cafe/80 transition-colors"><i class="fa fa-whatsapp text-lg"></i></a>
+                </div>
+            </nav>
+
+            <!-- Icono Menú Móvil -->
+            <button id="btnMenu" class="lg:hidden p-2 focus:outline-none">
+                <div class="w-6 h-0.5 bg-oscuro mb-1.5 transition-all duration-300 barra1"></div>
+                <div class="w-6 h-0.5 bg-oscuro mb-1.5 transition-all duration-300 barra2"></div>
+                <div class="w-6 h-0.5 bg-oscuro transition-all duration-300 barra3"></div>
+            </button>
+        </div>
+    </header>
+
+    <!-- Menú Desplegable Móvil -->
+    <div id="menuMovil" class="fixed top-0 right-0 w-[280px] h-full bg-white shadow-xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col p-6 pt-20">
+        <!-- Buscador Móvil -->
+        <div class="relative mb-6">
+            <input type="text" placeholder="Buscar mole..." class="w-full px-3 py-2 border border-cafe/30 rounded-full text-sm focus:outline-none focus:ring-1 focus:ring-azul">
+            <button class="absolute right-3 top-1/2 -translate-y-1/2 text-cafe">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+
+        <!-- Enlaces Móviles -->
+        <nav class="flex flex-col gap-4">
+            <a href="#Productos" class="text-oscuro hover:text-azul transition-colors py-2 border-b border-cafe/10" onclick="cerrarMenuMovil()">Productos</a>
+            <a href="#nosotros" class="text-oscuro hover:text-azul transition-colors py-2 border-b border-cafe/10" onclick="cerrarMenuMovil()">Nosotros</a>
+            <a href="#servicios" class="text-oscuro hover:text-azul transition-colors py-2 border-b border-cafe/10" onclick="cerrarMenuMovil()">Servicios</a>
+            
+            <!-- Submenú Contacto + Ayuda Móvil -->
+            <div class="border-b border-cafe/10 pb-2">
+                <button id="btnContactoMovil" class="flex justify-between items-center w-full text-oscuro hover:text-azul transition-colors py-2">
+                    Contacto <i class="fa fa-chevron-down text-xs transition-transform duration-300" id="iconoContacto"></i>
+                </button>
+                <div id="submenuContacto" class="hidden mt-2 pl-4 flex flex-col gap-2">
+                    <a href="#contacto" class="text-oscuro/80 hover:text-azul transition-colors py-1" onclick="cerrarMenuMovil()">Datos de Contacto</a>
+                    <a href="#ayuda" class="text-oscuro/80 hover:text-azul transition-colors py-1" onclick="cerrarMenuMovil()">Ayuda y Preguntas</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Redes Sociales Móvil -->
+        <div class="mt-auto flex gap-4 justify-center py-4 border-t border-cafe/10">
+            <a href="#" class="text-azul hover:text-azul/80 transition-colors text-xl"><i class="fa fa-facebook-square"></i></a>
+            <a href="#" class="text-rojo hover:text-rojo/80 transition-colors text-xl"><i class="fa fa-instagram"></i></a>
+            <a href="#" class="text-cafe hover:text-cafe/80 transition-colors text-xl"><i class="fa fa-whatsapp"></i></a>
+        </div>
+    </div>
+
+    <!-- Capa Opaca Fondo -->
+    <div id="fondoOpaco" class="fixed inset-0 bg-oscuro/50 z-30 hidden transition-opacity duration-300" onclick="cerrarMenuMovil()"></div>
+
+    <!-- Secciones de la Página -->
+    <main class="pt-16">
+        <section id="Productos" class="min-h-[90vh] flex items-center justify-center bg-azul/10">
+            <div class="text-center">
+                <h1 class="text-4xl lg:text-5xl font-bold text-cafe mb-4">Productos </h1>
+                <p class="text-lg lg:text-xl text-oscuro/80 max-w-2xl mx-auto">Productos envasados con recetas tradicionales de nuestra tierra</p>
+            </div>
+        </section>
+
+ 
+      <title>Molli - Productos de Mole</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        :root {
+            --rojo-molli: #8B0000;
+            --dorado-molli: #D4A017;
+            --marron-molli: #5A3E2B;
+            --crema-molli: #F8F3E6;
+            --blanco-molli: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--crema-molli);
+            color: var(--marron-molli);
+        }
+
+        /* Encabezado */
+        header {
+            background-color: var(--rojo-molli);
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        .logo {
+            color: var(--blanco-molli);
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--dorado-molli);
+        }
+
+        /* Contenedor de productos */
+        .productos-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .titulo-seccion {
+            color: var(--rojo-molli);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid var(--dorado-molli);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Grid de productos */
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Tarjeta de producto */
+        .producto-tarjeta {
+            background-color: var(--blanco-molli);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .producto-tarjeta:hover {
+            transform: translateY(-5px);
+        }
+
+        .producto-imagen {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .producto-nombre {
+            font-size: 1.5rem;
+            color: var(--rojo-molli);
+            margin-bottom: 0.8rem;
+        }
+
+        .producto-descripcion {
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Enlaces de producto */
+        .enlace-producto {
+            display: inline-block;
+            background-color: var(--dorado-molli);
+            color: var(--blanco-molli);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .enlace-producto:hover {
+            background-color: var(--marron-molli);
+        }
+
+        .enlace-producto i {
+            margin-right: 0.5rem;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: var(--marron-molli);
+            color: var(--blanco-molli);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>   
+ 
+    
+
+    <main class="productos-container">
+        <h2 class="titulo-seccion">Nuestros Moles Especiales</h2>
+
+        <div class="productos-grid">
+            <!-- Producto 1: Mole de Tamarindo -->
+            <div class="producto-tarjeta">
+                <img 
+                    src="https://images.unsplash.com/photo-1597827425533-191322ee64b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                    alt="Mole de Tamarindo Molli - Embalaje y preparación" 
+                    class="producto-imagen"
+                >
+                <h3 class="producto-nombre">Mole Tamarindo</h3>
+                <p class="producto-descripcion">
+                    Acidez equilibrada con sabores tradicionales, ideal para carnes blancas, enchiladas y tamales. Elaborado con tamarindo fresco de Guerrero.
+                </p>
+                <a href="producto-mole-tamarindo.html" class="enlace-producto">
+                    <i class="fas fa-shopping-cart"></i> Ver Producto
+                </a>
+            </div>
+
+            <!-- Producto 2: Mole de Chile de Árbol -->
+            <div class="producto-tarjeta">
+                <img 
+                    src="" 
+                    alt="Mole de Chile de Árbol Molli - Embalaje y preparación" 
+                    class="producto-imagen"
+                >
+                <h3 class="producto-nombre">Mole Chile de Árbol</h3>
+                <p class="producto-descripcion">
+                    Sabor picante intenso con aroma ahumado, elaborado con chiles seleccionados. Perfecto para platillos con personalidad fuerte.
+                </p>
+                <a href="producto-mole-chile-arbol.html" class="enlace-producto">
+                    <i class="fas fa-shopping-cart"></i> Ver Producto
+                </a>
+            </div>
+
+            <!-- Producto 3: Mole de Mango -->
+            <div class="producto-tarjeta">
+                <img 
+                    src="" 
+                    alt="Mole de Mango Molli - Embalaje y preparación" 
+                    class="producto-imagen"
+                >
+                <h3 class="producto-nombre">Mole Mango</h3>
+                <p class="producto-descripcion">
+                    Dulzura natural del mango combinada con cacao y canela. Ideal para pollo, pescado o como acompañamiento de quesos artesanales.
+                </p>
+                <a href="producto-mole-mango.html" class="enlace-producto">
+                    <i class="fas fa-shopping-cart"></i> Ver Producto
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Molli - Todos los derechos reservados | Iguala de la Independencia, Guerrero</p>
+    </footer>
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        <section id="nosotros" class="min-h-[90vh] flex items-center justify-center bg-white py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold text-cafe mb-6">Sobre Nosotros</h2>
+                <p class="max-w-3xl mx-auto text-oscuro/80">Generaciones de tradición en cada envase, elaborados con ingredientes seleccionados de las regiones más fértiles de Iguala de la Independencia.</p>
+            </div>
+        </section>
+
+        <section id="servicios" class="min-h-[90vh] flex items-center justify-center bg-rojo/10 py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold text-cafe mb-6">Nuestros Servicios</h2>
+                <p class="max-w-3xl mx-auto text-oscuro/80">Venta minorista y mayorista, envíos a todo México y servicio de catering para eventos especiales.</p>
+            </div>
+        </section>
+
+        
+        
+        
+        
+        
+        
+        
+        
+        <section id="contacto" class="min-h-[90vh] flex items-center justify-center bg-white py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold text-cafe mb-6">Datos de Contacto</h2>
+                <p class="max-w-3xl mx-auto text-oscuro/80">Iguala de la Independencia, Guerrero | Tel: 733 144 1145 y 7331097866 | aquiles5525553@gmail.com< /p>
+            </div>
+        </section>
+
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <section id="ayuda" class="min-h-[90vh] flex items-center justify-center bg-cafe/10 py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold text-cafe mb-6">Ayuda y Preguntas</h2>
+                <p class="max-w-3xl mx-auto text-oscuro/80">Consulta nuestra guía de uso, formas de pago y políticas de envío para resolver tus dudas.</p>
+            </div>
+            
+            
+              
+            
+        </section>
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        const btnMenu = document.getElementById('btnMenu');
+        const menuMovil = document.getElementById('menuMovil');
+        const fondoOpaco = document.getElementById('fondoOpaco');
+        const btnContactoMovil = document.getElementById('btnContactoMovil');
+        const submenuContacto = document.getElementById('submenuContacto');
+        const iconoContacto = document.getElementById('iconoContacto');
+
+        // Abrir/Cerrar Menú Móvil
+        function toggleMenuMovil() {
+            menuMovil.classList.toggle('translate-x-full');
+            fondoOpaco.classList.toggle('hidden');
+            document.body.classList.toggle('overflow-hidden');
+            
+            // Animación icono hamburguesa
+            const barra1 = btnMenu.querySelector('.barra1');
+            const barra2 = btnMenu.querySelector('.barra2');
+            const barra3 = btnMenu.querySelector('.barra3');
+            
+            barra1.classList.toggle('rotate-45');
+            barra1.classList.toggle('translate-y-2');
+            barra2.classList.toggle('opacity-0');
+            barra3.classList.toggle('-rotate-45');
+            barra3.classList.toggle('-translate-y-2');
+        }
+
+        // Cerrar Menú Móvil
+        function cerrarMenuMovil() {
+            menuMovil.classList.add('translate-x-full');
+            fondoOpaco.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            
+            // Restaurar icono hamburguesa
+            const barra1 = btnMenu.querySelector('.barra1');
+            const barra2 = btnMenu.querySelector('.barra2');
+            const barra3 = btnMenu.querySelector('.barra3');
+            
+            barra1.classList.remove('rotate-45', 'translate-y-2');
+            barra2.classList.remove('opacity-0');
+            barra3.classList.remove('-rotate-45', '-translate-y-2');
+            
+            // Cerrar submenú contacto
+            submenuContacto.classList.add('hidden');
+            iconoContacto.classList.remove('rotate-180');
+        }
+
+        // Toggle Submenú Contacto Móvil
+        btnContactoMovil.addEventListener('click', () => {
+            submenuContacto.classList.toggle('hidden');
+            iconoContacto.classList.toggle('rotate-180');
+        });
+
+        // Event Listeners
+        btnMenu.addEventListener('click', toggleMenuMovil);
+
+        // Scroll Suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
